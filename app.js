@@ -52,6 +52,18 @@ app.post("/AddDetails",(req,res)=>{
     res.json({"status":"Added Successfully"})
 })
 
+app.post("/ViewDetails",(req,res) => {
+    addModel.find().then(
+        (data) => {
+            res.json(data)
+        }
+    ).catch(
+        (error) => {
+            res.json(error)
+        }
+    )
+})
+
 
 app.listen(8080,()=>{
     console.log("server started")
