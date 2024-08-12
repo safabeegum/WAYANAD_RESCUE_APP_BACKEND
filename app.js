@@ -26,6 +26,23 @@ app.post("/AdminSignUp",(req,res)=>{
 
 })
 
+app.post("/AdminSignIn",(req,res)=>{
+    let input = req.body
+    let result=loginModel.find({username:input.username}).then(
+        (response)=>{
+            if (response.length>0) {
+                const validator = bcrypt.compareSync(input.password,response[0].password)
+                if (validator) {
+                    res.json({"status":"success"})
+                } else {
+                    res.json({"status":"Inavalid Password"})
+                }
+            } else {
+                res.json({"status":"Invalid Username"})
+            }
+        }
+    ).catch()
+})
 app.listen(8080,()=>{
     console.log("server started")
 })
