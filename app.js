@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt")
 const cors = require("cors")
 const json = require("jsonwebtoken")
 const loginModel = require("./models/Admin")
+const addModel = require("./models/Add")
 
 const app = express()
 app.use(cors())        //to handle issues
@@ -43,6 +44,15 @@ app.post("/AdminSignIn",(req,res)=>{
         }
     ).catch()
 })
+
+app.post("/AddDetails",(req,res)=>{
+    let input = req.body 
+    let add = new addModel(input)
+    add.save()
+    res.json({"status":"Added Successfully"})
+})
+
+
 app.listen(8080,()=>{
     console.log("server started")
 })
